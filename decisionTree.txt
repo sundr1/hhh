@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+
+data = pd.read_csv("Data.csv")
+print(data)
+
+x = data.iloc[: , 1:-1]
+y = data.iloc[: , -1]
+print(x)
+print("---------------------------------------------")
+print(y)
+
+from sklearn.preprocessing import LabelEncoder
+labelencoder = LabelEncoder()
+
+x = x.apply(labelencoder.fit_transform)  # perform label Encoding
+print(x)
+
+from sklearn.tree import DecisionTreeClassifier  #trained the algorihm using given data
+classifier = DecisionTreeClassifier(criterion="entropy")
+classifier.fit(x, y)
+
+# predict the value on given expression
+x_in = np.array([1,1,0,0])
+
+y_pred = classifier.predict([x_in])
+print(y_pred)
+
+from sklearn.tree import plot_tree
+plot_tree(classifier,  feature_names=x.columns, class_names=["No","Yes"],filled="true",)
+

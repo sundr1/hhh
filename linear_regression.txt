@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+data= pd.read_csv("hours.csv")
+print(data)
+
+x = data.iloc[: , :-1].values
+y= data.iloc[: ,1].values
+plt.scatter(x,y)
+
+from sklearn.linear_model import LinearRegression
+
+regressor = LinearRegression()
+a = regressor.fit(x,y)
+
+b = regressor.score(x,y)  # to print accuracy
+print(b)
+
+c= regressor.intercept_   # means values of y
+print(c)
+
+plt.scatter(x,y,color="red")
+plt.plot(x, regressor.predict(x), color="blue")
+plt.show()
