@@ -1,0 +1,15 @@
+from Crypto.Cipher import AES
+
+
+key = (input("enter key:")).encode('ascii')
+data =  (input("enter data:")).encode('ascii')
+
+
+e_cipher = AES.new(key, AES.MODE_EAX)
+e_data = e_cipher.encrypt(data)
+
+d_cipher = AES.new(key, AES.MODE_EAX,e_cipher.nonce)
+d_data = d_cipher.decrypt(e_data)
+
+print("Encrypted message is : ", e_data)
+print("Original Message was: ", d_data.decode('ascii'))
